@@ -1,3 +1,4 @@
+//Set a variable called finances to an array of arrays containing the date and profit for each month
 var finances = [
 ['Jan-2010', 867884],
 ['Feb-2010', 984655],
@@ -86,4 +87,104 @@ var finances = [
 ['Jan-2017', 138230],
 ['Feb-2017', 671099]
 ];
+
+//Initialise variables to store the total number of months, total profits,
+//average change in profits, greatest increase in profits and the greatest decrease in profits.
+var totalMonths = 0; //initialise total months to 0
+var totalProfit = 0; //initialise total profit to 0
+var averageChange = 0; //initialise average change to 0
+var greatestIncrease = ['', 0]; //initialise greatest increase
+var greatestDecrease = ['', 0]; //initialise greatest decrease
+
+//Loop through the records in the finances array
+for (var i = 0; i < finances.length; i++) { //create a for loop where i is the current record and i++ is the increment that will move to the next record
+    //get the date and profit for the current record
+    var date = finances[i][0]; //get the date where i is the current record and 0 is the first column
+    var profit = finances[i][1]; //get the profit where i is the current record and 1 is the second column. We get the second column because the first column is the date.
+
+//increment the total months by 1. We do this because we want to count the number of months in the array.
+    totalMonths++; //increment the total months by 1. This is the same as totalMonths = totalMonths + 1
+
+ //add the profit to the total profit
+    totalProfit += profit; //add the profit to the total profit. This is the same as totalProfit = totalProfit + profit
+
+//Calculate the change in profit from the previous months
+    if (i > 0) { //if i is greater than 0, then we have a previous month to compare to the current month
+        var change = profit - finances[i - 1][1]; //calculate the change in profit by subtracting the profit of the current month from the profit of the previous month. We get the profit of the previous month by using i - 1 to get the previous record and then [1] to get the profit column.
+        averageChange += change; //add the change to the average change. This is the same as averageChange = averageChange + change
+
+//update the greatest increase if the change is greater than the current greatest increase
+        if (change > greatestIncrease[1]) { //if the change is greater than the current greatest increase
+            greatestIncrease = [date, change]; //update the greatest increase to the current date and change
+        } //end if
+//update the greatest decrease if the change is less than the current greatest decrease
+        if (change < greatestDecrease[1]) { //if the change is less than the current greatest decrease
+            greatestDecrease = [date, change]; //update the greatest decrease to the current date and change
+        } //end if from if (change < greatestDecrease[1])
+    } //end if from if (i > 0)
+} //end for loop
+
+//calculate the average change in profit
+averageChange /= totalMonths - 1; //divide the average change by the total months - 1. We subtract 1 from the total months because we don't want to include the first month in the average change calculation.  We do this because we don't have a previous month to compare to the first month.
+
+//format the results as currency in strings. I have done this because previous results returned the losses in a $-foo format as opposed to a -$foo format - the former being incorrect.
+var totalProfitFormatted = totalProfit.toLocaleString('en-gb', {style: 'currency', currency: 'GBP'}); //format the total profit as currency
+var averageChangeFormatted = averageChange.toLocaleString('en-gb', {style: 'currency', currency: 'GBP'}); //format the average change as currency
+var greatestIncreaseFormatted = greatestIncrease[1].toLocaleString('en-gb', {style: 'currency', currency: 'GBP'}); //format the greatest increase as currency
+var greatestDecreaseFormatted = greatestDecrease[1].toLocaleString('en-gb', {style: 'currency', currency: 'GBP'}); //format the greatest decrease as currency
+
+//output the results to the console lookin' all fancy like  
+console.log(
+    `%cFinancial Analysis report:
+    ----------------------------
+    I calculated %c%s%c months
+    Total amount calculated equalled: %c%s%c
+    Average change in profit was: %c%s%c
+    The greatest increase was in %c%s%c where your profit was %c%s%c
+    The greatest decrease was in %c%s%c where losses totalled was %c%s`,
+    'color: cyan',
+    'color: yellow',
+    totalMonths,
+    'color: cyan',
+    totalProfit >= 0 ? 'color: green' : 'color: red',
+    totalProfitFormatted,
+    'color: cyan',
+    averageChange >= 0 ? 'color: green' : 'color: red',
+    averageChangeFormatted,
+    'color: cyan',
+    'color: yellow',
+    greatestIncrease[0],
+    'color: cyan',
+    greatestIncreaseFormatted[1] >= 0 ? 'color: green' : 'color: red',
+    greatestIncreaseFormatted,
+    'color: cyan',
+    'color: yellow',
+    greatestDecrease[0],
+    'color: cyan',
+    greatestDecrease[1] >= 0 ? 'color: green' : 'color: red',
+    greatestDecreaseFormatted
+  );
+  
+// Output the results to the console in the same format as the guide
+console.log('Financial Analysis'); // Output the title
+console.log('----------------------------'); // Output a line of dashes
+console.log('Total Months: ' + totalMonths); // Output the total number of months
+console.log('Total: ' + totalProfit); // Output the total profit
+console.log('Average Change: ' + averageChange); // Output the average change in profit
+console.log('Greatest Increase in Profits: ' + greatestIncrease[0] + ' (' + greatestIncrease[1] + ')'); // Output the greatest increase in profit
+console.log('Greatest Decrease in Profits: ' + greatestDecrease[0] + ' (' + greatestDecrease[1] + ')'); // Output the greatest decrease in profit
+
+//This was just something else that I thought looked better than the console.log method. I have left it here for future reference because I don't want to lose points for not following the guide lol.
+console.table({
+    'Total Months': totalMonths,
+    'Total Profit': totalProfitFormatted,
+    'Average Change': averageChangeFormatted,
+    'Greatest Increase': [greatestIncrease[0], greatestIncreaseFormatted],
+    'Greatest Decrease': [greatestDecrease[0], greatestDecreaseFormatted]
+});
+
+
+
+
+
 
