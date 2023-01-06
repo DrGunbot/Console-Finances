@@ -141,7 +141,7 @@ console.log(
     Total amount calculated equalled: %c%s%c
     Average change in profit was: %c%s%c
     The greatest increase was in %c%s%c where your profit was %c%s%c
-    The greatest decrease was in %c%s%c where losses totalled was %c%s`,
+    The greatest decrease was in %c%s%c where losses incurred were equal to %c%s`,
     'color: cyan',
     'color: yellow',
     totalMonths,
