@@ -1,5 +1,10 @@
 # Financial Analysis
-This code analyzes a dataset of financial records in this format:
+
+![Console output.](/images/consoleoutput.png "The console output created by index.js.")
+
+**How it works:**
+
+This code analyzes a dataset of financial records in this format and calculates various summary statistics.:
 
 | Date / year period  | Amount displayed as an integer |
 | ------------- |:-------------:|
@@ -7,7 +12,6 @@ This code analyzes a dataset of financial records in this format:
 | Feb-2000      | -1721637     |
 | March-2000      | 3123243     |
 
-and calculates various summary statistics. 
 The dataset consists of arrays with two fields, a date and a profit or loss amount. The code will calculate the following:
 
 * The total number of months included in the dataset

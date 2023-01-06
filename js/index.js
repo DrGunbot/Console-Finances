@@ -110,8 +110,10 @@ for (var i = 0; i < finances.length; i++) { //create a for loop where i is the c
 
 //Calculate the change in profit from the previous months
     if (i > 0) { //if i is greater than 0, then we have a previous month to compare to the current month
-        var change = profit - finances[i - 1][1]; //calculate the change in profit by subtracting the profit of the current month from the profit of the previous month. We get the profit of the previous month by using i - 1 to get the previous record and then [1] to get the profit column.
+        var change = profit - finances[i - 1][1]; //calculate the change in profit by subtracting the profit of the current month from the profit of the previous month.
+        // We get the profit of the previous month by using i - 1 to get the previous record and then [1] to get the profit column.
         averageChange += change; //add the change to the average change. This is the same as averageChange = averageChange + change
+    
 
 //update the greatest increase if the change is greater than the current greatest increase
         if (change > greatestIncrease[1]) { //if the change is greater than the current greatest increase
@@ -125,7 +127,8 @@ for (var i = 0; i < finances.length; i++) { //create a for loop where i is the c
 } //end for loop
 
 //calculate the average change in profit
-averageChange /= totalMonths - 1; //divide the average change by the total months - 1. We subtract 1 from the total months because we don't want to include the first month in the average change calculation.  We do this because we don't have a previous month to compare to the first month.
+averageChange /= totalMonths - 1; //divide the average change by the total months - 1. We subtract 1 from the total months because we don't want to include 
+//the first month in the average change calculation.  We do this because we don't have a previous month to compare to the first month.
 
 //format the results as currency in strings. I have done this because previous results returned the losses in a $-foo format as opposed to a -$foo format - the former being incorrect.
 var totalProfitFormatted = totalProfit.toLocaleString('en-gb', {style: 'currency', currency: 'GBP'}); //format the total profit as currency
@@ -135,13 +138,17 @@ var greatestDecreaseFormatted = greatestDecrease[1].toLocaleString('en-gb', {sty
 
 //output the results to the console lookin' all fancy like  
 console.log(
-    `%cFinancial Analysis report:
-    ----------------------------
-    I calculated %c%s%c months
-    Total amount calculated equalled: %c%s%c
+    `%cFinancial %cAnalysis %creport %c
+    ---------------------------- %c
+    I processed %c%s%c months of trades.
+    Total: %c%s%c
     Average change in profit was: %c%s%c
     The greatest increase was in %c%s%c where your profit was %c%s%c
     The greatest decrease was in %c%s%c where losses incurred were equal to %c%s`,
+    'color: red',
+    'color: white',
+    'color: cyan',
+    'color: white',
     'color: cyan',
     'color: yellow',
     totalMonths,
@@ -164,24 +171,29 @@ console.log(
     greatestDecrease[1] >= 0 ? 'color: green' : 'color: red',
     greatestDecreaseFormatted
   );
+
+  //explain the colours to the user in comments of the code, not the console
+  //I have used %c to change the colour of the text in the console. I have used the following colours. 
+  //%c works by taking the next argument in the console.log and applying it to the text that follows the %c.
+
   
 // Output the results to the console in the same format as the guide
-console.log('Financial Analysis'); // Output the title
-console.log('----------------------------'); // Output a line of dashes
-console.log('Total Months: ' + totalMonths); // Output the total number of months
-console.log('Total: ' + totalProfit); // Output the total profit
-console.log('Average Change: ' + averageChange); // Output the average change in profit
-console.log('Greatest Increase in Profits: ' + greatestIncrease[0] + ' (' + greatestIncrease[1] + ')'); // Output the greatest increase in profit
-console.log('Greatest Decrease in Profits: ' + greatestDecrease[0] + ' (' + greatestDecrease[1] + ')'); // Output the greatest decrease in profit
+// console.log('Financial Analysis'); // Output the title
+// console.log('----------------------------'); // Output a line of dashes
+// console.log('Total Months: ' + totalMonths); // Output the total number of months
+// console.log('Total: ' + totalProfit); // Output the total profit
+// console.log('Average Change: ' + averageChange); // Output the average change in profit
+// console.log('Greatest Increase in Profits: ' + greatestIncrease[0] + ' (' + greatestIncrease[1] + ')'); // Output the greatest increase in profit
+// console.log('Greatest Decrease in Profits: ' + greatestDecrease[0] + ' (' + greatestDecrease[1] + ')'); // Output the greatest decrease in profit
 
 //This was just something else that I thought looked better than the console.log method. I have left it here for future reference because I don't want to lose points for not following the guide lol.
-console.table({
-    'Total Months': totalMonths,
-    'Total Profit': totalProfitFormatted,
-    'Average Change': averageChangeFormatted,
-    'Greatest Increase': [greatestIncrease[0], greatestIncreaseFormatted],
-    'Greatest Decrease': [greatestDecrease[0], greatestDecreaseFormatted]
-});
+// console.table({
+//     'Total Months': totalMonths,
+//     'Total Profit': totalProfitFormatted,
+//     'Average Change': averageChangeFormatted,
+//     'Greatest Increase': [greatestIncrease[0], greatestIncreaseFormatted],
+//     'Greatest Decrease': [greatestDecrease[0], greatestDecreaseFormatted]
+// });
 
 
 
