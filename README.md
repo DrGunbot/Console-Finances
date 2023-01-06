@@ -1,10 +1,12 @@
 # Financial Analysis
 
-![Console output.](/images/consoleoutput.png "The console output created by index.js.")
+![Console output.](/images/consoleoutput.png "The console output created by index.js.")  
 
-**How it works:**
+[View the live page](https://drgunbot.github.io/Console-Finances/)  
 
-This code analyzes a dataset of financial records in this format and calculates various summary statistics.:
+**How it works:**  
+
+This code analyzes a dataset of financial records in this format and calculates various summary statistics:
 
 | Date / year period  | Amount displayed as an integer |
 | ------------- |:-------------:|
