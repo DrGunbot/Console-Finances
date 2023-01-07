@@ -95,6 +95,7 @@ var totalProfit = 0; //initialise total profit to 0
 var averageChange = 0; //initialise average change to 0
 var greatestIncrease = ['', 0]; //initialise greatest increase
 var greatestDecrease = ['', 0]; //initialise greatest decrease
+var bestMonth = ['', 0]; //initialise best month
 
 //Loop through the records in the finances array
 for (var i = 0; i < finances.length; i++) { //create a for loop where i is the current record and i++ is the increment that will move to the next record
@@ -102,28 +103,26 @@ for (var i = 0; i < finances.length; i++) { //create a for loop where i is the c
     var date = finances[i][0]; //get the date where i is the current record and 0 is the first column
     var profit = finances[i][1]; //get the profit where i is the current record and 1 is the second column. We get the second column because the first column is the date.
 
-//increment the total months by 1. We do this because we want to count the number of months in the array.
+    //increment the total months by 1. We do this because we want to count the number of months in the array.
     totalMonths++; //increment the total months by 1. This is the same as totalMonths = totalMonths + 1
 
- //add the profit to the total profit
+    //add the profit to the total profit
     totalProfit += profit; //add the profit to the total profit. This is the same as totalProfit = totalProfit + profit
 
-//Calculate the change in profit from the previous months
-    if (i > 0) { //if i is greater than 0, then we have a previous month to compare to the current month
+    //Calculate the change in profit from the previous months
+    i > 0 ? (() => {
+
         var change = profit - finances[i - 1][1]; //calculate the change in profit by subtracting the profit of the current month from the profit of the previous month.
         // We get the profit of the previous month by using i - 1 to get the previous record and then [1] to get the profit column.
         averageChange += change; //add the change to the average change. This is the same as averageChange = averageChange + change
     
+        //update the greatest increase if the change is greater than the current greatest increase
+        change > greatestIncrease[1] ? greatestIncrease = [date, change] : null; //update the greatest increase to the current date and change
 
-//update the greatest increase if the change is greater than the current greatest increase
-        if (change > greatestIncrease[1]) { //if the change is greater than the current greatest increase
-            greatestIncrease = [date, change]; //update the greatest increase to the current date and change
-        } //end if
-//update the greatest decrease if the change is less than the current greatest decrease
-        if (change < greatestDecrease[1]) { //if the change is less than the current greatest decrease
-            greatestDecrease = [date, change]; //update the greatest decrease to the current date and change
-        } //end if from if (change < greatestDecrease[1])
-    } //end if from if (i > 0)
+        //update the greatest decrease if the change is less than the current greatest decrease
+        change < greatestDecrease[1] ? greatestDecrease = [date, change] : null; //update the greatest decrease to the current date and change
+
+    })() : null;
 } //end for loop
 
 //calculate the average change in profit
@@ -172,11 +171,6 @@ console.log(
     greatestDecreaseFormatted
   );
 
-  //explain the colours to the user in comments of the code, not the console
-  //I have used %c to change the colour of the text in the console. I have used the following colours. 
-  //%c works by taking the next argument in the console.log and applying it to the text that follows the %c.
-
-  
 // Output the results to the console in the same format as the guide
 // console.log('Financial Analysis'); // Output the title
 // console.log('----------------------------'); // Output a line of dashes
@@ -194,9 +188,3 @@ console.log(
 //     'Greatest Increase': [greatestIncrease[0], greatestIncreaseFormatted],
 //     'Greatest Decrease': [greatestDecrease[0], greatestDecreaseFormatted]
 // });
-
-
-
-
-
-
